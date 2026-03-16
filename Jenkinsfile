@@ -6,7 +6,6 @@ pipeline {
     }
 
     options {
-        ansiColor('xterm')
         withCredentials([
             string(credentialsId: 'DOCKER_PASSWORD', variable: 'DOCKER_PASSWORD'),
             string(credentialsId: 'DOCKER_LOGIN', variable: 'USERNAME'),
@@ -60,20 +59,21 @@ pipeline {
                     }
                 }
             }
-            stage ('Deploying the container') {
-                steps {
-                    script {
-                        try {
-                            // Deploy the container
-                            sh "docker run -d -p 3000:3000 --name sample-node-project ${dockerImage}"
-                        }
-                        catch(Exception e) {
-                            echo "FAILED ${e}"
-                            throw e
-                        }
+        }
+        
+        stage ('Deploying the container') {
+            steps {
+                script {
+                    try {
+                        // Deploy the container
+                        sh "docker run -d -p 3000:3000 --name sample-node-project ${dockerImage}"
+                    }
+                    catch(Exception e) {
+                        echo "FAILED ${e}"
+                        throw e
                     }
                 }
             }
-        }     
+        }
     }
 }
