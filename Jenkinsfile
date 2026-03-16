@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'master'}
+    agent any
 
     environment {
         PIPELINE_NAME = "${params.PIPELINE_NAME}"
