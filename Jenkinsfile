@@ -28,7 +28,7 @@ pipeline {
                         echo "FAILED ${e}"
                         currentBuild.result = 'FAILURE'
                         throw e
-                    }`
+                    }
                 }
             }
         }
