@@ -36,22 +36,22 @@ pipeline {
         stage('Building the image') {
             steps {
                 script{
-                    sh 'docker --version'
+                    sh '/Applications/Docker.app/Contents/Resources/bin/docker --version'
                     try{
                         // Define Docker variables
                         def dockerImage = 'sample-node-project'
                         
-                        // Build Docker image
-                        sh "docker build -t ${dockerImage} ."
+                        // Build Docker image using absolute path
+                        sh "/Applications/Docker.app/Contents/Resources/bin/docker build -t ${dockerImage} ."
                         
                         // Login to Docker Hub
-                        sh "echo ${DOCKER_PASSWORD} | docker login -u ${USERNAME} --password-stdin"
+                        sh "/Applications/Docker.app/Contents/Resources/bin/docker login -u ${USERNAME} --password-stdin <<< ${DOCKER_PASSWORD}"
                         
                         // Push Docker image
-                        sh "docker push ${dockerImage}"
+                        sh "/Applications/Docker.app/Contents/Resources/bin/docker push ${dockerImage}"
                         
                         // Logout from Docker Hub
-                        sh "docker logout"
+                        sh "/Applications/Docker.app/Contents/Resources/bin/docker logout"
                         
                     }
                     catch(Exception e) {
@@ -66,8 +66,8 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Deploy the container
-                        sh "docker run -d -p 3000:3000 --name sample-node-project ${dockerImage}"
+                        // Deploy the container using absolute Docker path
+                        sh "/Applications/Docker.app/Contents/Resources/bin/docker run -d -p 3000:3000 --name sample-node-project sample-node-project"
                     }
                     catch(Exception e) {
                         echo "FAILED ${e}"
