@@ -36,6 +36,7 @@ pipeline {
         stage('Building the image') {
             steps {
                 script{
+                    sh 'docker --version'
                     try{
                         // Define Docker variables
                         def dockerImage = 'sample-node-project'
