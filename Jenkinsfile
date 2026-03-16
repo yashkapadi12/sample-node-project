@@ -13,10 +13,6 @@ pipeline {
         ])
     }
 
-    parameters {
-        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'dev', name: 'Branch', type: 'PT_BRANCH'
-    }
-
 
     stages {
         
@@ -25,20 +21,14 @@ pipeline {
             steps{
                 script{
                     try{
-                        properties([
-                            parameters([
-                                gitParameter ( branchFilter: 'origin/(.*)', defaultValue: 'dev', name: 'Branch', type: 'PT_BRANCH',  useRepository: "git@github.com:yashkapadi12/sample-node-project.git" ),
-                                ])
-                        ])
                         git branch: "dev", credentialsId: 'git', url: "git@github.com:yashkapadi12/sample-node-project.git"
-                    
                     }
                     catch(Exception e)
                     {
                         echo "FAILED ${e}"
                         currentBuild.result = 'FAILURE'
                         throw e
-                    }
+                    }`
                 }
             }
         }
