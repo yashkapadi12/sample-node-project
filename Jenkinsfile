@@ -39,7 +39,7 @@ pipeline {
                     sh '/Applications/Docker.app/Contents/Resources/bin/docker --version'
                     try{
                         // Define Docker variables
-                        def dockerImage = 'sample-node-project'
+                        def dockerImage = 'yashkapadii/sample-node-project'
                         
                         // Build Docker image using absolute path
                         sh "/Applications/Docker.app/Contents/Resources/bin/docker build -t ${dockerImage} ."
